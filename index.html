@@ -103,7 +103,8 @@ summary{cursor:pointer;font-weight:600}
 
 <section class="card" style="margin-top:16px">
   <strong>Related tools / متعلقہ ٹولز:</strong>
-  <a href="profit-margin-calculator.html">Profit Margin &amp; Markup Calculator / پرافٹ مارجن کیلکولیٹر</a>
+  <a href="profit-margin-calculator.html">Profit Margin &amp; Markup Calculator / پرافٹ مارجن کیلکولیٹر</a> |
+  <a href="shop-billing.html">Shop Billing / شاپ بلنگ</a>
 </section>
 
 <article id="enArticle">
@@ -208,7 +209,7 @@ function calc(){
  var fixedCosts=cost+pack+ship+ads+retexp+fixed;
  var d=1-c-p, dt=1-c-p-tm;
  var be=d>0?Math.round(fixedCosts/d):null;
- var tp=dt>0?Math.round(fixedCosts/dt):null;
+ var tp=(n("target")>0&&dt>0)?Math.round(fixedCosts/dt):null;
  var t=T[lang];
  var pe=$("profit");pe.textContent="PKR "+fmt(profit);
  pe.className="big "+(profit>=0?"good":"bad");
