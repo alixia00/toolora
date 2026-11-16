@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profit Margin and Markup Calculator | Toolora</title>
+<meta name="description" content="Free profit margin and markup calculator. Enter cost and price to get profit, margin and markup, or find the selling price for a target margin or markup.">
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--text:#1a1f2b;--muted:#5b6475;--line:#dfe3ea;--brand:#1d4ed8;--good:#0f7b3f;--bad:#b42318}
+@media (prefers-color-scheme:dark){:root{--bg:#10141c;--card:#181e29;--text:#eef1f6;--muted:#a3adbf;--line:#2a3345;--brand:#6ea0ff;--good:#4ade80;--bad:#ff8a80}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Nastaliq Urdu","Noto Naskh Arabic",sans-serif;background:var(--bg);color:var(--text)}
+header{background:var(--card);border-bottom:1px solid var(--line)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+.logo{font-weight:700;font-size:20px;color:var(--brand);text-decoration:none}
+button.lang{background:var(--brand);color:#fff;border:0;border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer}
+h1{font-size:30px;line-height:1.25;margin:24px 0 8px}
+h2{font-size:20px;margin:28px 0 8px}
+h3{font-size:18px;margin:20px 0 6px}
+p.sub{color:var(--muted);margin:0 0 16px}
+.grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:800px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h2{margin-top:0}
+label{display:block;font-size:14px;margin:12px 0 4px;color:var(--muted)}
+input{width:100%;padding:10px 12px;font-size:16px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text)}
+input:focus{outline:2px solid var(--brand);outline-offset:1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.big{font-size:26px;font-weight:700;margin-top:10px}
+.good{color:var(--good)}.bad{color:var(--bad)}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+article{margin:32px 0}
+table{border-collapse:collapse;width:100%;font-size:15px}
+td,th{border:1px solid var(--line);padding:8px;text-align:start}
+code{background:var(--bg);padding:2px 6px;border-radius:4px;font-size:14px}
+.related{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.related a{border:1px solid var(--line);background:var(--card);color:var(--brand);padding:8px 12px;border-radius:8px;text-decoration:none;font-size:15px}
+.rel{margin:28px 0 8px}
+.rgrid{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:640px){.rgrid{grid-template-columns:repeat(2,1fr)}}
+.rcard{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text);transition:border-color .15s,box-shadow .15s,transform .15s}
+.rcard:hover{border-color:var(--brand);box-shadow:0 4px 14px rgba(29,78,216,.14);transform:translateY(-1px)}
+.rcard:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.ric{flex:none;width:44px;height:44px;border-radius:10px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700}
+.rcard strong{display:block;font-size:16px}
+.rcard small{display:block;color:var(--muted);font-size:13px;line-height:1.4}
+footer{padding:24px 0 40px;color:var(--muted);font-size:13px}
+[dir=rtl] body{font-size:17px}
+.hide{display:none}
+details{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0;background:var(--card)}
+summary{cursor:pointer;font-weight:600}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="logo" href="index.html">Toolora</a>
+  <button class="lang" id="langBtn" type="button">اردو</button>
+</div></header>
+
+<main class="wrap">
+<h1 data-t="h1">Profit Margin and Markup Calculator</h1>
+<p class="sub" data-t="sub">Work out profit, margin and markup, or find the price you need to hit a target. All amounts in PKR.</p>
+
+<div class="grid">
+  <section class="card" aria-live="polite">
+    <h2 data-t="a_t">1. I know my cost and price</h2>
+    <div class="two">
+      <div><label for="a_cost" data-t="cost">Cost</label><input id="a_cost" type="number" inputmode="decimal" min="0" value="800"></div>
+      <div><label for="a_price" data-t="price">Selling price</label><input id="a_price" type="number" inputmode="decimal" min="0" value="1000"></div>
+    </div>
+    <div class="big" id="a_profit">-</div>
+    <div class="row"><span data-t="margin">Profit margin</span><strong id="a_margin">-</strong></div>
+    <div class="row"><span data-t="markup">Markup</span><strong id="a_markup">-</strong></div>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 data-t="b_t">2. I want a target margin</h2>
+    <div class="two">
+      <div><label for="b_cost" data-t="cost">Cost</label><input id="b_cost" type="number" inputmode="decimal" min="0" value="700"></div>
+      <div><label for="b_m" data-t="tmargin">Target margin (%)</label><input id="b_m" type="number" inputmode="decimal" min="0" max="99" value="30"></div>
+    </div>
+    <div class="big" id="b_price">-</div>
+    <div class="row"><span data-t="profitU">Profit per unit</span><strong id="b_profit">-</strong></div>
+    <div class="row"><span data-t="markup">Markup</span><strong id="b_markup">-</strong></div>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <h2 data-t="c_t">3. I want a target markup</h2>
+    <div class="two">
+      <div><label for="c_cost" data-t="cost">Cost</label><input id="c_cost" type="number" inputmode="decimal" min="0" value="500"></div>
+      <div><label for="c_k" data-t="tmarkup">Target markup (%)</label><input id="c_k" type="number" inputmode="decimal" min="0" value="40"></div>
+    </div>
+    <div class="big" id="c_price">-</div>
+    <div class="row"><span data-t="profitU">Profit per unit</span><strong id="c_profit">-</strong></div>
+    <div class="row"><span data-t="margin">Profit margin</span><strong id="c_margin">-</strong></div>
+  </section>
+
+</div>
+
+<section class="rel" aria-labelledby="relT">
+  <h2 id="relT" data-t="relT">Related tools</h2>
+  <div class="rgrid">
+    <a class="rcard" href="index.html"><span class="ric" aria-hidden="true">📦</span><span><strong data-t="rel_daraz">Daraz Profit Calculator</strong><small data-t="rel_darazd">See real profit after fees, shipping, ads and returns.</small></span></a>
+    <a class="rcard" href="shop-billing.html"><span class="ric" aria-hidden="true">🧾</span><span><strong data-t="rel_bill">Shop Billing &amp; Receipts</strong><small data-t="rel_billd">Make invoices, print receipts and track dues.</small></span></a>
+  </div>
+</section>
+
+<article id="enArticle">
+  <h2>Profit margin vs markup: the difference and how to calculate both</h2>
+  <p>Margin and markup both describe profit, but they use different bases. Mixing them up is one of the most common pricing mistakes: a seller who wants a 30% margin but adds a 30% markup ends up earning less than planned.</p>
+  <h3>Formulas</h3>
+  <p><code>Profit = Selling price − Cost</code></p>
+  <p><code>Margin % = Profit ÷ Selling price × 100</code></p>
+  <p><code>Markup % = Profit ÷ Cost × 100</code></p>
+  <p><code>Price for a target margin = Cost ÷ (1 − margin)</code></p>
+  <p><code>Price for a target markup = Cost × (1 + markup)</code></p>
+  <h3>Worked examples</h3>
+  <p><strong>Example 1.</strong> Cost PKR 800, price PKR 1,000. Profit is 200. Margin is 200 ÷ 1,000 = 20%. Markup is 200 ÷ 800 = 25%.</p>
+  <p><strong>Example 2.</strong> Cost PKR 700 and you want a 30% margin. Price = 700 ÷ (1 − 0.30) = PKR 1,000. Profit is 300, which is 30% of 1,000.</p>
+  <p><strong>Example 3.</strong> Cost PKR 500 and you want a 40% markup. Price = 500 × 1.40 = PKR 700. Profit is 200, which is a margin of about 28.57%.</p>
+  <h3>Margin and markup side by side</h3>
+  <table>
+    <tr><th>Margin</th><th>Equivalent markup</th></tr>
+    <tr><td>10%</td><td>11.11%</td></tr>
+    <tr><td>20%</td><td>25%</td></tr>
+    <tr><td>25%</td><td>33.33%</td></tr>
+    <tr><td>30%</td><td>42.86%</td></tr>
+    <tr><td>40%</td><td>66.67%</td></tr>
+    <tr><td>50%</td><td>100%</td></tr>
+  </table>
+  <p>Conversion: markup = margin ÷ (1 − margin).</p>
+  <h3>Common mistakes</h3>
+  <ul>
+    <li>Using markup when you meant margin (or the other way round).</li>
+    <li>Using only the product cost. Add packaging, shipping, platform fees and ads before you price. For Daraz sellers, see the <a href="index.html">Daraz Profit Calculator</a>.</li>
+    <li>Setting a margin so thin that one discount or return wipes out the profit.</li>
+    <li>A margin of 100% or more is not possible. Margin is always below 100%, while markup can be any size.</li>
+  </ul>
+  <h3>FAQ</h3>
+  <details><summary>Which is better to use, margin or markup?</summary><p>Margin is easier to compare with your income and costs because it is a share of the selling price. Markup is handy for quickly setting a price from cost. Just be clear which one you are using.</p></details>
+  <details><summary>Can margin be higher than 100%?</summary><p>No. Profit cannot exceed the selling price, so margin stays below 100%. Markup can go above 100%.</p></details>
+  <details><summary>What is a good profit margin?</summary><p>It depends on your product, competition and costs. Compare your margin after all fees and returns, and check what similar sellers in your category can afford.</p></details>
+</article>
+
+<article id="urArticle" class="hide" dir="rtl" lang="ur">
+  <h2>پرافٹ مارجن اور مارک اپ: فرق اور دونوں کیسے نکالیں</h2>
+  <p>مارجن اور مارک اپ دونوں منافع بتاتے ہیں مگر ان کی بنیاد مختلف ہے۔ انہیں آپس میں ملا دینا قیمت لگاتے وقت سب سے عام غلطیوں میں سے ہے: جو سیلر 30% مارجن چاہتا ہے مگر 30% مارک اپ لگا دیتا ہے، اسے منصوبے سے کم منافع ملتا ہے۔</p>
+  <h3>فارمولے</h3>
+  <p><code>منافع = فروخت کی قیمت − لاگت</code></p>
+  <p><code>مارجن % = منافع ÷ فروخت کی قیمت × 100</code></p>
+  <p><code>مارک اپ % = منافع ÷ لاگت × 100</code></p>
+  <p><code>ہدف مارجن کے لیے قیمت = لاگت ÷ (1 − مارجن)</code></p>
+  <p><code>ہدف مارک اپ کے لیے قیمت = لاگت × (1 + مارک اپ)</code></p>
+  <h3>حل شدہ مثالیں</h3>
+  <p><strong>مثال 1۔</strong> لاگت 800 روپے، قیمت 1,000 روپے۔ منافع 200 ہے۔ مارجن 200 ÷ 1,000 = 20%۔ مارک اپ 200 ÷ 800 = 25%۔</p>
+  <p><strong>مثال 2۔</strong> لاگت 700 روپے اور آپ 30% مارجن چاہتے ہیں۔ قیمت = 700 ÷ (1 − 0.30) = 1,000 روپے۔ منافع 300 ہے جو 1,000 کا 30% ہے۔</p>
+  <p><strong>مثال 3۔</strong> لاگت 500 روپے اور آپ 40% مارک اپ چاہتے ہیں۔ قیمت = 500 × 1.40 = 700 روپے۔ منافع 200 ہے، یعنی مارجن تقریباً 28.57%۔</p>
+  <h3>مارجن اور مارک اپ ساتھ ساتھ</h3>
+  <table>
+    <tr><th>مارجن</th><th>برابر مارک اپ</th></tr>
+    <tr><td>10%</td><td>11.11%</td></tr>
+    <tr><td>20%</td><td>25%</td></tr>
+    <tr><td>25%</td><td>33.33%</td></tr>
+    <tr><td>30%</td><td>42.86%</td></tr>
+    <tr><td>40%</td><td>66.67%</td></tr>
+    <tr><td>50%</td><td>100%</td></tr>
+  </table>
+  <p>تبدیلی: مارک اپ = مارجن ÷ (1 − مارجن)۔</p>
+  <h3>عام غلطیاں</h3>
+  <ul>
+    <li>مارجن کی جگہ مارک اپ استعمال کرنا (یا اس کے برعکس)۔</li>
+    <li>صرف پروڈکٹ کی لاگت لینا۔ قیمت لگانے سے پہلے پیکیجنگ، شپنگ، پلیٹ فارم فیس اور اشتہار بھی شامل کریں۔ داراز سیلرز کے لیے <a href="index.html">داراز پرافٹ کیلکولیٹر</a> دیکھیں۔</li>
+    <li>مارجن اتنا کم رکھنا کہ ایک ڈسکاؤنٹ یا ریٹرن سارا منافع کھا جائے۔</li>
+    <li>100% یا اس سے زیادہ مارجن ممکن نہیں۔ مارجن ہمیشہ 100% سے کم ہوتا ہے، جبکہ مارک اپ کتنا بھی ہو سکتا ہے۔</li>
+  </ul>
+  <h3>اکثر پوچھے گئے سوالات</h3>
+  <details><summary>مارجن اور مارک اپ میں سے کون سا استعمال کرنا بہتر ہے؟</summary><p>مارجن کا موازنہ آمدنی اور اخراجات سے آسان ہے کیونکہ یہ فروخت کی قیمت کا حصہ ہوتا ہے۔ مارک اپ لاگت سے جلدی قیمت لگانے کے لیے آسان ہے۔ بس یہ واضح رکھیں کہ آپ کون سا استعمال کر رہے ہیں۔</p></details>
+  <details><summary>کیا مارجن 100% سے زیادہ ہو سکتا ہے؟</summary><p>نہیں۔ منافع فروخت کی قیمت سے زیادہ نہیں ہو سکتا، اس لیے مارجن 100% سے کم رہتا ہے۔ مارک اپ 100% سے اوپر جا سکتا ہے۔</p></details>
+  <details><summary>اچھا پرافٹ مارجن کتنا ہوتا ہے؟</summary><p>یہ آپ کی پروڈکٹ، مقابلے اور لاگت پر منحصر ہے۔ تمام فیس اور ریٹرن کے بعد کا مارجن دیکھیں اور جائزہ لیں کہ آپ کی کیٹیگری کے ملتے جلتے سیلر کتنا برداشت کر سکتے ہیں۔</p></details>
+</article>
+</main>
+
+<footer class="wrap" data-t="foot">Estimates only. This tool does not give tax, legal or financial advice. Results depend on the numbers you enter.</footer>
+
+<script>
+(function(){
+"use strict";
+var T={
+ en:{relT:"Related tools",rel_daraz:"Daraz Profit Calculator",rel_darazd:"See real profit after fees, shipping, ads and returns.",rel_bill:"Shop Billing & Receipts",rel_billd:"Make invoices, print receipts and track dues.",h1:"Profit Margin and Markup Calculator",sub:"Work out profit, margin and markup, or find the price you need to hit a target. All amounts in PKR.",a_t:"1. I know my cost and price",b_t:"2. I want a target margin",c_t:"3. I want a target markup",cost:"Cost",price:"Selling price",margin:"Profit margin",markup:"Markup",tmargin:"Target margin (%)",tmarkup:"Target markup (%)",profitU:"Profit per unit",d_t:"Related tools",rel1:"Daraz Profit Calculator",relnote:"More tools are coming soon.",foot:"Estimates only. This tool does not give tax, legal or financial advice. Results depend on the numbers you enter.",lblP:"Profit",lblPrice:"Price",btn:"اردو",bad:"Enter a margin below 100%."},
+ ur:{relT:"متعلقہ ٹولز",rel_daraz:"داراز پرافٹ کیلکولیٹر",rel_darazd:"فیس، شپنگ، اشتہار اور ریٹرن کے بعد اصل منافع دیکھیں۔",rel_bill:"شاپ بلنگ اور رسیدیں",rel_billd:"انوائس بنائیں، رسید پرنٹ کریں اور ادھار کا حساب رکھیں۔",h1:"پرافٹ مارجن اور مارک اپ کیلکولیٹر",sub:"منافع، مارجن اور مارک اپ نکالیں، یا ہدف تک پہنچنے کے لیے درکار قیمت معلوم کریں۔ تمام رقمیں روپوں میں۔",a_t:"1. مجھے لاگت اور قیمت معلوم ہے",b_t:"2. مجھے ہدف مارجن چاہیے",c_t:"3. مجھے ہدف مارک اپ چاہیے",cost:"لاگت",price:"فروخت کی قیمت",margin:"منافع کا مارجن",markup:"مارک اپ",tmargin:"ہدف مارجن (%)",tmarkup:"ہدف مارک اپ (%)",profitU:"فی یونٹ منافع",d_t:"متعلقہ ٹولز",rel1:"داراز پرافٹ کیلکولیٹر",relnote:"مزید ٹولز جلد آ رہے ہیں۔",foot:"یہ صرف اندازے ہیں۔ یہ ٹول ٹیکس، قانونی یا مالی مشورہ نہیں دیتا۔ نتائج آپ کے لکھے گئے اعداد پر منحصر ہیں۔",lblP:"منافع",lblPrice:"قیمت",btn:"English",bad:"مارجن 100% سے کم لکھیں۔"}
+};
+var lang="en";
+var $=function(id){return document.getElementById(id)};
+function num(id){var v=parseFloat($(id).value);return isFinite(v)&&v>0?v:0}
+function paisa(x){return Math.round(x*100)}
+function fmt(p){return (p/100).toLocaleString("en-PK",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function pct(x){return (Math.round(x*10000)/100).toFixed(2)+"%"}
+function calc(){
+ var t=T[lang];
+ /* A: cost + price */
+ var ac=paisa(num("a_cost")),ap=paisa(num("a_price")),apr=ap-ac;
+ var e=$("a_profit");e.textContent=t.lblP+": PKR "+fmt(apr);e.className="big "+(apr>=0?"good":"bad");
+ $("a_margin").textContent=ap>0?pct(apr/ap):"-";
+ $("a_markup").textContent=ac>0?pct(apr/ac):"-";
+ /* B: cost + target margin */
+ var bc=paisa(num("b_cost")),bm=num("b_m")/100;
+ if(bm>=1){$("b_price").textContent=t.bad;$("b_profit").textContent="-";$("b_markup").textContent="-";}
+ else{
+  var bp=Math.round(bc/(1-bm)),bpr=bp-bc;
+  $("b_price").textContent=t.lblPrice+": PKR "+fmt(bp);$("b_price").className="big";
+  $("b_profit").textContent="PKR "+fmt(bpr);
+  $("b_markup").textContent=bc>0?pct(bpr/bc):"-";
+ }
+ /* C: cost + target markup */
+ var cc=paisa(num("c_cost")),ck=num("c_k")/100;
+ var cp=Math.round(cc*(1+ck)),cpr=cp-cc;
+ $("c_price").textContent=t.lblPrice+": PKR "+fmt(cp);$("c_price").className="big";
+ $("c_profit").textContent="PKR "+fmt(cpr);
+ $("c_margin").textContent=cp>0?pct(cpr/cp):"-";
+}
+function setLang(l){
+ lang=l;var t=T[l];
+ document.documentElement.lang=l==="ur"?"ur":"en";
+ document.documentElement.dir=l==="ur"?"rtl":"ltr";
+ document.querySelectorAll("[data-t]").forEach(function(el){var k=el.getAttribute("data-t");if(t[k])el.textContent=t[k]});
+ $("enArticle").classList.toggle("hide",l==="ur");
+ $("urArticle").classList.toggle("hide",l!=="ur");
+ $("langBtn").textContent=t.btn;
+ try{localStorage.setItem("lang",l)}catch(e){}
+ calc();
+}
+document.querySelectorAll("input").forEach(function(i){i.addEventListener("input",calc)});
+$("langBtn").addEventListener("click",function(){setLang(lang==="en"?"ur":"en")});
+var saved="en";try{saved=localStorage.getItem("lang")||"en"}catch(e){}
+setLang(saved==="ur"?"ur":"en");
+})();
+</script>
+</body>
+</html>
